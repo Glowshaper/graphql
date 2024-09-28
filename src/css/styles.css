@@ -1,0 +1,32 @@
+body {
+    background-color:rgb(54, 53, 63);
+    color:rgb(201, 194, 186);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 2vh;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    padding-left: 10vh;
+    padding-right: 10vh;
+}
+
+#login, #graph_view{
+
+}
+
+#login_header, #page_header{
+    font-size: 4vh;
+}
+
+#login_form{
+
+}
+
+#login_form label{
+    font-size: 1vh;
+}
+
+#login_form input{
+    background-color:rgb(14, 13, 17);
+    color:rgb(141, 136, 130);
+    padding: 2vh;
+}
