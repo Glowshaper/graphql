@@ -55,11 +55,47 @@ async function initiateLogin(){
             method: "POST",
             //headers: {'Authorization': `Basic ${login}`}
             headers: {'Authorization': "Basic "+login}
-            })
+            }).catch(handleCredentialsError);
          console.log("response",response);
+        if(response.status = 200){
+            let token = await response.json();
+            console.log(token);
+            let graphData = getUserData(token);
+            fillAppPage(graphData);
+        }
     }else{
         infoSection.innerText = "Please provide both your KOOD/JÕHVI username or email address, and KOOD/JÕHVI password"
     }
+
+}
+
+function handleCredentialsError(error){
+    console.log("handling errors");
+    infoSection.innerText = error;
+    console.log(error);
+}
+
+async function getUserData(token){
+    let userData = null;
+    let headers = {
+        "Content-type": "application/json",
+        Authorization: "Bearer "+token
+    };
+    
+    let query = "{ user {id login transaction}}";
+
+    let userDataRequest = {
+        "method": "POST",
+        "headers": headers,
+        "body": JSON.stringify({ "query": query }),
+    };
+
+    let userDataResponse = await fetch(graphqlEndpoint, requestOptions);
+    userData = await userDataResponse.json();
+    console.log(userData);
+}
+
+function fillAppPage(graphData){
 
 }
 
