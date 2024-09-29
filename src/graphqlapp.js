@@ -32,8 +32,8 @@ function preparePage(){
 
     //graphSection.innerHtml = "";
     infoSection.innerText = "";
-    graphSection.styles.display = "none";
-    logoutSection.styles.display = "none";
+    graphSection.style.display = "none";
+    logoutSection.style.display = "none";
 }
 
 function displayLogin() {
