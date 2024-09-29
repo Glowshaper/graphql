@@ -25,10 +25,10 @@ function init() {
 }
 
 function preparePage(){
-    loginSection = Document.getElementById("login");
-    logoutSection = Document.getElementById("logout");
-    infoSection = Document.getElementById("info_text");
-    graphSection = Document.getElementById("graph_view");
+    loginSection = document.getElementById("login");
+    logoutSection = document.getElementById("logout");
+    infoSection = document.getElementById("info_text");
+    graphSection = document.getElementById("graph_view");
 
     //graphSection.innerHtml = "";
     infoSection.innerText = "";
@@ -37,15 +37,15 @@ function preparePage(){
 }
 
 function displayLogin() {
-    loginButton = Document.getElementById("submit_login");
+    loginButton = document.getElementById("submit_login");
     loginButton.addEventListener("click", initiateLogin)
 
 }
 
 async function initiateLogin(){
     infoSection.innerText = "";
-    user = Document.getElementById("name_input").value;
-    pwd = Document.getElementById("passwd_input").value;
+    user = document.getElementById("name_input").value;
+    pwd = document.getElementById("passwd_input").value;
 
     //let login = btoa(`${user}:${pwd}`);
     let login = btoa(user+":"+pwd);
