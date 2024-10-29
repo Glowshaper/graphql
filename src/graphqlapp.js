@@ -280,7 +280,7 @@ function displayGraphPage(graphData) {
     let graphHeight = (window.innerHeight || document.documentElement.clientHeight) * 0.8;
     let graphSVG = constructGraph(graphData, graphWidth, graphHeight);
     document.getElementById("graph_view").innerHTML = graphSVG;
-    document.getElementById("graph_view").style.display = "block";
+    document.getElementById("graph_view").style.display = "";
 }
 
 function constructGraph(graphData, graphWidth, graphHeight) {
