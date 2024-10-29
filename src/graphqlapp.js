@@ -19,30 +19,42 @@ let logoutButton = null;
 let app = init();
 
 function init() {
+    prepareLogin();
     preparePage();
-    displayLogin();
 }
 
-function preparePage() {
+async function preparePage() {
+    
     loginSection = document.getElementById("login");
     logoutSection = document.getElementById("logout");
     infoSection = document.getElementById("info_text");
     graphSection = document.getElementById("graph_view");
 
-    //graphSection.innerHtml = "";
+    graphSection.innerText = "";
     infoSection.innerText = "";
-    graphSection.style.display = "none";
-    logoutSection.style.display = "none";
+
+    let token = localStorage.getItem("jwtToken");
+
+    if(token){
+        loginSection.style.display = "none";
+        logoutSection.style.display = "";
+        graphSection.style.display = "";
+        createInfoPage(token);
+    }else{
+        loginSection.style.display = "";
+        logoutSection.style.display = "none";
+        graphSection.style.display = "none";
+    }
 }
 
-function displayLogin() {
+function prepareLogin() {
     loginButton = document.getElementById("submit_login");
-    loginButton.addEventListener("click", createInfoPage)
-
+    loginButton.addEventListener("click", initiateLogin)
+    logoutButton = document.getElementById("submit_logout");
+    logoutButton.addEventListener("click", initiateLogout)
 }
 
-async function createInfoPage() {
-    let token = await initiateLogin()
+async function createInfoPage(token) {
     let graphData = null;
     let rawUserData = await getUserData(token);
     if (rawUserData === null) {
@@ -50,41 +62,32 @@ async function createInfoPage() {
     } else {
         graphData = organizeUserData(rawUserData);
     }
-
     fillAppPage(graphData);
+}
+
+function initiateLogout(){
+    console.log("LOGOUT!")
+    localStorage.removeItem("jwtToken")
+    preparePage();
 }
 
 async function initiateLogin() {
     infoSection.innerText = "";
     user = document.getElementById("name_input").value;
     pwd = document.getElementById("passwd_input").value;
-
-    //let login = btoa(`${user}:${pwd}`);
     let login = btoa(user + ":" + pwd);
     if (user !== "" && pwd !== "") {
         let response = await fetch(authEndpoinint, {
             method: "POST",
-            //headers: {'Authorization': `Basic ${login}`}
             headers: { 'Authorization': "Basic " + login }
         }).catch(handleCredentialsError);
         if (response.status === 200) {
 
             let token = await response.json();
             if (token) {
-                //document.cookie = `jwtToken=${String(token)}; path=/; max-age=3600; SameSite=None`;
-                //document.cookie = "jwtToken=test"
-                //setCookie("jwtToken", "test");
+                localStorage.setItem('jwtToken', token); 
             }
-            return token;
-            /*
-            let graphData = getUserData(token);
-            if (graphData === null){
-                infoSection.innerText = "Login Expired. Please log in again."
-            } else{
-                return graphData;
-            }
-            fillAppPage(graphData);
-            */
+            preparePage();
         } else {
             infoSection.innerText = "Wrong credentials. Please provide both your correct KOOD/JÕHVI username or email address, and KOOD/JÕHVI password"
         }
@@ -123,7 +126,6 @@ async function getUserData(token) {
 
     let userId = userDataForText.data.user[0].id
 
-    //query = "query GetPassFailRatio($userId: Int!) {progress(where: { userId: { _eq: $userId } }, order_by: { createdAt: desc }) {grade}}";
     query = "query GetTransactions($userId: Int!) {transaction(where: { userId: { _eq: $userId } }, order_by: { createdAt: asc }) {createdAt type objectId amount path}}";
 
 

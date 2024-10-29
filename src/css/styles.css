@@ -9,24 +9,62 @@ body {
     padding-right: 10vh;
 }
 
-#login, #graph_view{
-
+#login, #logout{
+    display: block;
 }
 
 #login_header, #page_header{
-    font-size: 4vh;
+    font-size: 2vh;
+    padding:2vh;
+    text-align: center;
 }
 
 #login_form{
-
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
 }
 
 #login_form label{
-    font-size: 1vh;
+    font-size: 1.5vh;
+    margin:0.5vh;
 }
 
 #login_form input{
-    background-color:rgb(14, 13, 17);
+    background-color:rgb(68, 67, 71);
     color:rgb(141, 136, 130);
-    padding: 2vh;
+    padding: 1vh;
+    margin:1.5vh;
+    border: 2px solid rgb(46, 46, 46);
+    border-radius: 1vh;
+}
+
+#login_form button, #submit_logout{
+    background-color:rgb(126, 123, 121);
+    color:rgb(250, 250, 250);
+    padding: 1vh;
+    margin:1.5vh;
+    border: 2px solid rgb(68, 67, 71);
+    border-radius: 1vh;
+}
+
+#info_text{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+#info_text p{
+    padding: 1vh; 
+}
+
+#graph_view{
+    display: flex;
+    justify-content: center;
 }
