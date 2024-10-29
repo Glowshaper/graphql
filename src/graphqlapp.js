@@ -66,7 +66,6 @@ async function createInfoPage(token) {
 }
 
 function initiateLogout(){
-    console.log("LOGOUT!")
     localStorage.removeItem("jwtToken")
     preparePage();
 }
@@ -331,7 +330,6 @@ function constructGraph(graphData, graphWidth, graphHeight) {
 }
 
 function calculateAllExpValues(graphData){
-    console.log(graphData)
     let retObj = {};
     let totalModuleExp = 0;
     let totalAuditsGiven = graphData.user["audits given"]; 
@@ -345,18 +343,15 @@ function calculateAllExpValues(graphData){
 
     for (let i = 0; i < graphData.piscineExp.length; i++) {
         for (let [key, value] of Object.entries(graphData.piscineExp[i])) {
-            console.log("object:",key,value)
             retObj[key+"_level"] = value.levels[value.levels.length-1].amount
-            console.log("levels:",value.levels[value.levels.length-1].amount)
             let acc = 0;
             for(let i = 0; i < value.exp.length; i++){
                 acc+=value.exp[i].amount
             }
-            console.log("exp",acc)
             retObj[key+"_exp"] = acc;
         }
     }
-    console.log(retObj);
+
     return retObj;
 }
 
